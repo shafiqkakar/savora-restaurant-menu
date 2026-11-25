@@ -1,121 +1,139 @@
-# SAVORA – Dynamic Restaurant Menu Website
+# SAVORA – Dynamic Restaurant Website
 
-## 1. Project Overview
+## Project Overview
 
-SAVORA is a dynamic restaurant menu website developed using Next.js, TypeScript, Tailwind CSS, and NeonDB PostgreSQL.
+SAVORA is a dynamic restaurant website developed using Next.js, TypeScript, Tailwind CSS, and NeonDB PostgreSQL.
 
-The website allows users to view restaurant menu items, add new dishes, and delete existing dishes. Menu data is stored in a NeonDB database and retrieved through API routes.
+The website allows visitors to explore restaurant menu items, while the admin can securely manage menu items through an admin dashboard.
 
-## 2. Technologies Used
+## Technologies Used
 
-- Next.js
-- React
+- Next.js (App Router)
+- React.js
 - TypeScript
 - Tailwind CSS
-- NeonDB PostgreSQL
-- @neondatabase/serverless
+- NeonDB (PostgreSQL)
+- Cloudinary (Image Management)
+- GitHub
+- Vercel
 
-## 3. Main Features
+## Main Features
 
-- Professional restaurant website design.
-- Dynamic menu display from the database.
+### Public Website
+- View restaurant menu items.
+- View item names, prices, descriptions, and images.
+- Browse menu categories.
+- Add items to cart.
+- Place orders.
+
+### Admin Panel
+- Secure admin login and logout.
+- Dashboard overview and analytics.
 - Add new menu items.
-- Delete existing menu items.
-- Store menu information in NeonDB.
-- Data remains saved after refreshing the website.
-- Responsive website layout.
+- Edit existing menu items.
+- Delete menu items.
+- Manage menu categories.
+- Search and filter menu items.
+- Manage customer orders.
+- View order details.
 
-## 4. Project Structure
+### Database
+- Menu items are stored in NeonDB.
+- Customer orders are stored in NeonDB.
+- Order details are stored in the order items table.
+- Data remains available after refreshing the website.
 
-```text
-restaurant-menu/
-│
-├── public/
-│   └── hero.jpg
-│
-├── src/
-│   ├── app/
-│   │   ├── api/
-│   │   │   └── menu/
-│   │   │       └── route.ts
-│   │   │
-│   │   ├── layout.tsx
-│   │   ├── page.tsx
-│   │   └── globals.css
-│   │
-│   └── lib/
-│       └── db.ts
-│
-├── .env.local
-├── package.json
-└── README.md
-```
+## Database Table Structure
 
-## 5. Database Configuration
+### menu_items
 
-The project uses NeonDB PostgreSQL as its database.
+| Column | Type |
+|---|---|
+| id | SERIAL PRIMARY KEY |
+| name | VARCHAR |
+| price | NUMERIC |
+| description | TEXT |
+| image_url | TEXT |
+| category | VARCHAR |
 
-Create a database table using the following SQL query:
+### orders
 
-```sql
-CREATE TABLE menu_items (
-    id SERIAL PRIMARY KEY,
-    name VARCHAR(100) NOT NULL,
-    price DECIMAL(10, 2) NOT NULL,
-    description TEXT
-);
-```
+| Column | Type |
+|---|---|
+| id | SERIAL PRIMARY KEY |
+| customer_name | VARCHAR |
+| address | TEXT |
+| total_amount | NUMERIC |
+| status | VARCHAR |
+| created_at | TIMESTAMP |
 
-## 6. Environment Setup
+### order_items
 
-Create a `.env.local` file in the project root directory and add your NeonDB connection string:
+| Column | Type |
+|---|---|
+| id | SERIAL PRIMARY KEY |
+| order_id | INTEGER |
+| menu_item_id | INTEGER |
+| item_name | VARCHAR |
+| quantity | INTEGER |
+| price | NUMERIC |
 
-```env
-DATABASE_URL="YOUR_NEON_DATABASE_CONNECTION_STRING"
-```
+*Note: Actual column types and constraints should match your NeonDB tables.*
 
-Do not share your actual database credentials publicly.
+## Installation and Setup
 
-## 7. Installation and Running the Project
+1. Clone the repository:
 
-Install project dependencies:
+   ```bash
+   git clone https://github.com/shafiqkakar/savora-restaurant-menu.git
+   ```
 
-```bash
-npm install
-```
+2. Open the project folder:
 
-Start the development server:
+   ```bash
+   cd savora-restaurant-menu
+   ```
 
-```bash
-npm run dev
-```
+3. Install dependencies:
 
-Open the following address in your browser:
+   ```bash
+   npm install
+   ```
 
-```text
-http://localhost:3000
-```
+4. Create a `.env.local` file in the project root.
 
-## 8. API Routes
+5. Add the required environment variables using your own credentials. Check the project configuration for the exact variable names.
 
-The project uses the following API endpoints:
+6. Start the development server:
 
-| Method | Endpoint | Purpose |
-|---|---|---|
-| GET | `/api/menu` | Retrieve menu items |
-| POST | `/api/menu` | Add a new menu item |
-| DELETE | `/api/menu` | Delete a menu item |
+   ```bash
+   npm run dev
+   ```
 
-## 9. How the Project Works
+7. Open:
 
-1. The website sends a GET request to retrieve menu items from NeonDB.
-2. The user enters a dish name, price, and description.
-3. The website sends a POST request to save the new dish.
-4. The API inserts the information into the database.
-5. The updated menu is displayed on the website.
-6. The user can delete a menu item using the DELETE API.
-7. Database changes remain saved after refreshing the website.
+   ```text
+   http://localhost:3000
+   ```
 
-## 10. Conclusion
+## Security
 
-SAVORA demonstrates how to build a dynamic restaurant menu website using Next.js and NeonDB. It provides basic CRUD functionality through API routes and stores menu information in a PostgreSQL database.
+- Admin routes are protected.
+- Server-side authentication is used.
+- Session cookies are used for admin access.
+- Menu write operations require admin authentication.
+- Database credentials and session secrets are kept out of client-side code.
+
+## Deployment
+
+The project can be deployed using Vercel.
+
+GitHub Repository:  
+https://github.com/shafiqkakar/savora-restaurant-menu
+
+## Project Purpose
+
+This project demonstrates practical knowledge of Next.js, React, API routes, authentication, database integration, and dynamic website development.
+
+**Project Name:** SAVORA Restaurant Website  
+**Project Type:** Dynamic Full-Stack Web Application
